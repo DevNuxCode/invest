@@ -1,0 +1,99 @@
+[
+  {
+    "id": "POI-2024-001",
+    "name": "Alex Richardson",
+    "nickname": "CyberBully_Alex",
+    "platform": "Social Media",
+    "status": "Under Investigation",
+    "type": "Cyberbullying Case",
+    "image": "/images/person1.jpg",
+    "age": 28,
+    "location": "Los Angeles, CA",
+    "lastSeen": "2024-01-15",
+    "riskLevel": "Medium",
+    "crimes": [
+      {
+        "id": "C-001",
+        "type": "Cyberbullying",
+        "description": "Systematic harassment of multiple victims through social media platforms",
+        "date": "2024-01-10",
+        "severity": "High",
+        "evidence": "Screenshots, IP logs, witness statements"
+      },
+      {
+        "id": "C-002",
+        "type": "Identity Theft",
+        "description": "Created fake profiles using stolen personal information",
+        "date": "2024-01-05",
+        "severity": "Medium",
+        "evidence": "Fake profiles, stolen photos, victim reports"
+      }
+    ],
+    "details": {
+      "en": "Subject has been involved in systematic cyberbullying campaigns targeting teenagers. Known to create multiple fake accounts and coordinate harassment attacks.",
+      "es": "El sujeto ha estado involucrado en campañas sistemáticas de ciberacoso dirigidas a adolescentes. Conocido por crear múltiples cuentas falsas y coordinar ataques de acoso."
+    }
+  },
+  {
+    "id": "POI-2024-002",
+    "name": "Jordan Matthews",
+    "nickname": "TrollMaster88",
+    "platform": "Gaming Platform",
+    "status": "Active Case",
+    "type": "Online Harassment",
+    "image": "/images/person2.jpg",
+    "age": 24,
+    "location": "Chicago, IL",
+    "lastSeen": "2024-01-18",
+    "riskLevel": "High",
+    "crimes": [
+      {
+        "id": "C-003",
+        "type": "Online Harassment",
+        "description": "Persistent harassment and doxxing of gaming community members",
+        "date": "2024-01-12",
+        "severity": "High",
+        "evidence": "Chat logs, voice recordings, victim testimonies"
+      },
+      {
+        "id": "C-004",
+        "type": "Doxxing",
+        "description": "Publishing private information of victims online",
+        "date": "2024-01-08",
+        "severity": "Critical",
+        "evidence": "Published documents, forum posts, IP traces"
+      }
+    ],
+    "details": {
+      "en": "Active in gaming communities where they engage in doxxing and harassment. Has published personal information of multiple victims online.",
+      "es": "Activo en comunidades de juegos donde participa en doxxing y acoso. Ha publicado información personal de múltiples víctimas en línea."
+    }
+  },
+  {
+    "id": "POI-2024-003",
+    "name": "Casey Thompson",
+    "nickname": "Anonymous_User",
+    "platform": "Forums",
+    "status": "Investigation Complete",
+    "type": "Identity Verification",
+    "image": "/images/person3.jpg",
+    "age": 31,
+    "location": "Miami, FL",
+    "lastSeen": "2024-01-20",
+    "riskLevel": "Low",
+    "crimes": [
+      {
+        "id": "C-005",
+        "type": "Fraud",
+        "description": "Online financial fraud through fake investment schemes",
+        "date": "2023-12-15",
+        "severity": "Medium",
+        "evidence": "Financial records, email communications, bank statements"
+      }
+    ],
+    "details": {
+      "en": "Investigation completed. Subject was involved in minor online fraud activities. Case resolved with restitution paid to victims.",
+      "es": "Investigación completada. El sujeto estuvo involucrado en actividades menores de fraude en línea. Caso resuelto con restitución pagada a las víctimas."
+    }
+  }
+]
