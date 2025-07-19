@@ -1,15 +1,15 @@
 [
   {
     "id": "POI-2024-001",
-    "name": "Alex Richardson",
-    "nickname": "CyberBully_Alex",
-    "platform": "Social Media",
+    "name": "Felipe Esteban Aulestia Traslaviña",
+    "nickname": "Gato Antipasta",
+    "platform": "Tiktok",
     "status": "Under Investigation",
     "type": "Cyberbullying Case",
     "image": "/images/person1.jpg",
-    "age": 28,
-    "location": "Los Angeles, CA",
-    "lastSeen": "2024-01-15",
+    "age": 32,
+    "location": "R. Metro, Chile",
+    "lastSeen": "2025-05-15",
     "riskLevel": "Medium",
     "crimes": [
       {
