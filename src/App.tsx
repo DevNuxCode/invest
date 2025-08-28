@@ -5,6 +5,7 @@ import PersonOfInterest from './components/PersonOfInterest';
 import PersonModal from './components/PersonModal';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
+import Map from './components/Map';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import { usePersons } from './hooks/usePersons';
 import { Person } from './types/Person';
@@ -107,8 +108,11 @@ function AppContent() {
           )}
         </nav>
 
+
         {/* Header */}
         <Header />
+
+
 
         {/* Services Section */}
         <section id="services" className="py-16 bg-gray-50 dark:bg-gray-800">
@@ -245,22 +249,28 @@ function AppContent() {
 
                   <div className="mt-8 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
                     <p className="text-sm text-yellow-800 dark:text-yellow-200">
-                      <strong>Important:</strong> If you're in immediate danger, contact local law enforcement (911) first, 
-                      then reach out to our services for follow-up investigation and protection.
-                    </p>
+                      <strong>Important:</strong> {t('contact.important')} </p>< br/>
+                      
                   </div>
+                   {/* Widget embebido de Kaspersky Cybermap */}
+                        <Map />
                 </div>
               </div>
+                
 
               <div>
                 <ContactForm />
+                
+      
               </div>
             </div>
           </div>
         </section>
 
         {/* Footer */}
-        <Footer />
+        <section id="contact" className="py-16 bg-gray-50 dark:bg-gray-800">
+          <Footer />  
+        </section>
 
         {/* Person Modal */}
         {selectedPerson && (

@@ -1,8 +1,13 @@
 import React from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
+
+
 import { Shield, Phone, Mail, MapPin, ExternalLink } from 'lucide-react';
 
 const Footer: React.FC = () => {
+  const { t } = useLanguage();
   return (
+    
     <footer className="bg-gray-900 dark:bg-black text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid md:grid-cols-4 gap-8">
@@ -10,12 +15,10 @@ const Footer: React.FC = () => {
           <div className="md:col-span-2">
             <div className="flex items-center mb-4">
               <Shield className="h-8 w-8 mr-3" />
-              <span className="text-2xl font-bold">Federal Investigation Bureau</span>
+              <p className="text-2xl font-bold">{t('footer.title')}</p>
             </div>
             <p className="text-gray-300 mb-6 leading-relaxed">
-              A specialized federal agency dedicated to protecting citizens from cybercrime, 
-              digital harassment, and online threats through professional investigation services 
-              and comprehensive victim protection programs.
+                {t('footer.subtitle')}
             </p>
             <div className="flex space-x-4">
               <a 

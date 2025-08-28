@@ -25,12 +25,17 @@ const Header: React.FC = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+           <a href="#contact">
             <button className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-300 shadow-lg">
+              
               {t('header.reportEmergency')}
-            </button>
+
+            </button></a>
+            <a href="#services">
             <button className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-300 border border-white/30">
               {t('header.viewServices')}
-            </button>
+            </button></a>
+
           </div>
         </div>
         

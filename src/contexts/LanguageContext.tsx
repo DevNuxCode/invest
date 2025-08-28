@@ -17,7 +17,7 @@ const translations = {
     'nav.contact': 'Contact',
     
     // Header
-    'header.title': 'Federal Investigation Bureau',
+    'header.title': 'Private Investigation Service',
     'header.subtitle': 'Protecting citizens from cybercrime, harassment, and digital threats through professional investigation services and victim protection programs.',
     'header.reportEmergency': 'Report Emergency',
     'header.viewServices': 'View Services',
@@ -67,7 +67,12 @@ const translations = {
     'contact.hotline': '24/7 Emergency Hotline',
     'contact.investigation': 'Investigation Department',
     'contact.headquarters': 'Headquarters',
+    'contact.important': 'If you re in immediate danger, contact local law enforcement (911) first, then reach out to our services for follow-up investigation and protection.',
     
+    //footer
+    'footer.title': 'Private Investigation Service',
+    'footer.subtitle': 'A specialized private agency dedicated to protecting citizens from cybercrime, digital harassment, and online threats through professional investigation services and comprehensive victim protection programs.',
+
     // Modal
     'modal.close': 'Close',
     'modal.crimeDetails': 'Crime Details',
@@ -84,7 +89,7 @@ const translations = {
     'nav.contact': 'Contacto',
     
     // Header
-    'header.title': 'Oficina Federal de Investigación',
+    'header.title': 'Servicio de Investigación Privada',
     'header.subtitle': 'Protegiendo a los ciudadanos del cibercrimen, acoso y amenazas digitales a través de servicios profesionales de investigación y programas de protección a víctimas.',
     'header.reportEmergency': 'Reportar Emergencia',
     'header.viewServices': 'Ver Servicios',
@@ -134,7 +139,12 @@ const translations = {
     'contact.hotline': 'Línea Directa de Emergencia 24/7',
     'contact.investigation': 'Departamento de Investigación',
     'contact.headquarters': 'Sede Central',
+    'contact.important': 'Si está en peligro inmediato, comuníquese primero con la policía local (911) y luego con nuestros servicios para una investigación de seguimiento y protección.',
     
+    //footer
+    'footer.title': 'Servicio de Investigación Privada',
+    'footer.subtitle': 'Una agencia privada especializada dedicada a proteger a los ciudadanos de la ciberdelincuencia, el acoso digital y las amenazas en línea mediante servicios de investigación profesional y programas integrales de protección a las víctimas.',
+
     // Modal
     'modal.close': 'Cerrar',
     'modal.crimeDetails': 'Detalles del Delito',
