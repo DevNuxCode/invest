@@ -13,20 +13,18 @@ COPY . .
 # Build the static bundle
 RUN npm run build
 
-RUN apk add --no-cache certbot openssl
+
 
 # ===== 2️⃣ Production stage – serve with nginx =====
 FROM nginx:stable-alpine AS runner
+RUN apk add --no-cache certbot openssl
 
-
-COPY --from=build /app/build /usr/share/nginx/html
-# Copy the build artifacts from the builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/build /usr/share/nginx/html
 
 # Optional: override default nginx config for SPA routing
 COPY config/nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
+EXPOSE 80 443
 
 # Start nginx in the foreground
 CMD ["nginx", "-g", "daemon off;"]
