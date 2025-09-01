@@ -62,7 +62,7 @@ services:
         # 1️⃣  Obtener el certificado
         certbot certonly --webroot -w /var/www/html \
         --email devnuxcode@gmail.com --agree-tos --no-eff-email \
-        -d ep.clouddevnux.online -d www.clouddevnux.online || exit 1;
+        -d ep.clouddevnux.online -d www.clouddevnux.online 
 
         # 2️⃣  Renovar el certificado automáticamente
         while true; do sleep 12h; certbot renew --post-hook 'nginx -s reload'; done
