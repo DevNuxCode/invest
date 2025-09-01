@@ -5,7 +5,7 @@ import PersonOfInterest from './components/PersonOfInterest';
 import PersonModal from './components/PersonModal';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
-import Map from './components/Map';
+/*import Map from './components/Map';*/
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import { usePersons } from './hooks/usePersons';
 import { Person } from './types/Person';
@@ -252,8 +252,12 @@ function AppContent() {
                       <strong>Important:</strong> {t('contact.important')} </p>< br/>
                       
                   </div>
-                   {/* Widget embebido de Kaspersky Cybermap */}
-                        <Map />
+                   
+                      {/* <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}> */}
+                       {/* <Map />  </div>*/} 
+
+                  
+                   
                 </div>
               </div>
                 

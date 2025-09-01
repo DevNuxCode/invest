@@ -1,3 +1,4 @@
+// src/components/ContactForm.tsx
 import React, { useState } from 'react';
 import { Send, AlertTriangle } from 'lucide-react';
 
@@ -12,29 +13,62 @@ const ContactForm: React.FC = () => {
     evidence: ''
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  // ===== 1️⃣ Manejo de cambios =========================
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // ===== 2️⃣ Envío del formulario =======================
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real implementation, this would send to a secure government server
-    console.log('Form submitted:', formData);
-    alert('Report submitted successfully. An agent will contact you within 24 hours.');
-    
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      incidentType: '',
-      urgency: '',
-      description: '',
-      evidence: ''
-    });
+
+    try {
+      const response = await fetch(
+        process.env.REACT_APP_WEBHOOK_URL || 'http://localhost:5678/webhook-test/survey',
+        
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Si el webhook necesita algún token, añádelo aquí:
+            //'Authorization': 'Bearer <TU_TOKEN>'
+          },
+          body: JSON.stringify(formData)
+        }
+      );
+
+      if (!response.ok) {
+        // Si la respuesta no es 2xx, lanzamos error
+        const errorText = await response.text();
+        throw new Error(`Error ${response.status}: ${errorText}`);
+      }
+
+      // Si todo está bien
+      alert(
+        'Reporte enviado satisfactoriamente. Un agente se pondra en contacto via correo electronico con usted.'
+      );
+
+      // Reseteamos el formulario
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        incidentType: '',
+        urgency: '',
+        description: '',
+        evidence: ''
+      });
+    } catch (err: any) {
+      console.error(err);
+      alert(
+        'Hubo un problema al enviar el reporte. Inténtalo de nuevo más tarde.'
+      );
+    }
   };
 
   return (
@@ -48,15 +82,20 @@ const ContactForm: React.FC = () => {
 
       <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
         <p className="text-sm text-red-800 dark:text-red-200">
-          <strong>Secure Submission:</strong> This form uses encrypted transmission to protect your privacy and safety.
-          All reports are handled by trained investigators with the highest level of confidentiality.
+          <strong>Secure Submission:</strong> This form uses encrypted transmission to
+          protect your privacy and safety. All reports are handled by trained
+          investigators with the highest level of confidentiality.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* ... campos existentes ... */}
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >
               Full Name *
             </label>
             <input
@@ -72,7 +111,10 @@ const ContactForm: React.FC = () => {
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >
               Email Address *
             </label>
             <input
@@ -89,7 +131,10 @@ const ContactForm: React.FC = () => {
         </div>
 
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label
+            htmlFor="phone"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          >
             Phone Number
           </label>
           <input
@@ -105,7 +150,10 @@ const ContactForm: React.FC = () => {
 
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="incidentType" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label
+              htmlFor="incidentType"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >
               Incident Type *
             </label>
             <select
@@ -128,7 +176,10 @@ const ContactForm: React.FC = () => {
           </div>
 
           <div>
-            <label htmlFor="urgency" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label
+              htmlFor="urgency"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >
               Urgency Level *
             </label>
             <select
@@ -149,7 +200,10 @@ const ContactForm: React.FC = () => {
         </div>
 
         <div>
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label
+            htmlFor="description"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          >
             Incident Description *
           </label>
           <textarea
@@ -165,7 +219,10 @@ const ContactForm: React.FC = () => {
         </div>
 
         <div>
-          <label htmlFor="evidence" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label
+            htmlFor="evidence"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          >
             Evidence Information
           </label>
           <textarea
@@ -186,7 +243,10 @@ const ContactForm: React.FC = () => {
             required
             className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded dark:border-gray-600"
           />
-          <label htmlFor="consent" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+          <label
+            htmlFor="consent"
+            className="ml-2 block text-sm text-gray-700 dark:text-gray-300"
+          >
             I consent to investigation and understand this report may be used in legal proceedings *
           </label>
         </div>
@@ -202,8 +262,7 @@ const ContactForm: React.FC = () => {
 
       <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
         <p className="text-sm text-blue-800 dark:text-blue-200">
-          <strong>Next Steps:</strong> After submission, you'll receive a case number within 2 hours. 
-          A specialized agent will contact you within 24 hours to discuss your case and evidence collection.
+          <strong>Next Steps:</strong> After submission, you'll receive a case number within 2 hours. A specialized agent will contact you within 24 hours to discuss your case and evidence collection.
         </p>
       </div>
     </div>
