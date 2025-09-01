@@ -61,10 +61,9 @@ services:
       - /usr/share/nginx/html://usr/share/nginx/html:ro   # para challenge HTTP
     #command: -c "certbot certonly --webroot -w /var/www/html -d ep.clouddevnux.online -d www.clouddevnux.online --email devnuxcode@gmail.com --agree-tos --no-eff-email && while true; do sleep 12h; certbot renew --post-hook 'docker exec nginx nginx -s reload'; done"
     command: -c "certbot certonly \
-      --webroot -w /var/www/html \
-      -d ep.clouddevnux.online -d www.clouddevnux.online \
-      --email devnuxcode@gmail.com --agree-tos --no-eff-email && \
-        while true; do sleep 12h; certbot renew --post-hook 'docker exec nginx nginx -s reload'; done"
+             --webroot -w /var/www/html \
+             -d ep.clouddevnux.online -d www.clouddevnux.online \
+             --email devnuxcode@gmail.com --agree-tos --no-eff-email"
 
 volumes:
   n8n-data:
