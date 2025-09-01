@@ -22,7 +22,7 @@ services:
       "--webroot",
       "-w", "/usr/share/nginx/html",
       "-d", "ep.clouddevnux.online",
-      "-d", "www.clouddevnux.online",
+      "-d", "www.ep.clouddevnux.online",
       "--email", "devnuxcode@gmail.com",
       "--agree-tos",
       "--no-eff-email"
