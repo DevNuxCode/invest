@@ -38,7 +38,7 @@ services:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=admin
       - N8N_BASIC_AUTH_PASSWORD=admin123
-      - N8N_HOST=0.0.0.0
+      - N8N_HOST=167.71.148.184
       - N8N_PORT=5678
       # (Optional) set a different DB backend, e.g., Postgres:
       # - DB_TYPE=postgresdb
