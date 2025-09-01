@@ -58,12 +58,7 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
       - /var/www/html:/var/www/html:ro   # para challenge HTTP
     command: >
-      sh -c "
-            certbot certonly --webroot -w /var/www/html \
-            --email devnuxcode@gmail.com --agree-tos --no-eff-email \
-            -d ep.clouddevnux.online -d www.clouddevnux.online 
-            while true; do sleep 12h; certbot renew --post-hook 'nginx -s reload'; done
-          "
+     sh -c "certbot certonly  --webroot -w /var/www/html -d ep.clouddevnux.online -d www.clouddevnux.online --email devnuxcode@gmail.com --agree-tos --no-eff-email && while true; do sleep 12h; certbot renew --post-hook 'docker exec nginx nginx -s reload'; done"
 
 volumes:
   n8n-data:
