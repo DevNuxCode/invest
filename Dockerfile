@@ -19,7 +19,8 @@ RUN npm run build
 FROM nginx:stable-alpine AS runner
 RUN apk add --no-cache certbot openssl
 
-COPY --from=build /app/build /usr/share/nginx/html
+#COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Optional: override default nginx config for SPA routing
 COPY config/nginx.conf /etc/nginx/conf.d/default.conf
