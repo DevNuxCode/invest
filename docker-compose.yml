@@ -10,6 +10,22 @@ services:
     env_file:
       - .env                # your React env vars (if any)
     restart: unless-stopped
+    depends_on:
+      - n8n                  # wait for n8n to be ready
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/conf.d/default.conf:ro  # custom nginx config
+      - /etc/letsencrypt:/etc/letsencrypt:ro  # SSL certs (if using HTTPS)
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"          # HTTP
+      - "443:443"        # HTTPS
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
 
   # ---------- n8n ----------
   n8n:
@@ -33,6 +49,24 @@ services:
       # - DB_POSTGRESDB_PASSWORD=secret
     volumes:
       - n8n-data:/home/node/.n8n   # persistence
+  
+  certbot:
+    image: certbot/certbot:v2.10.0
+    container_name: certbot
+    restart: unless-stopped
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/www/html:/var/www/html:ro   # para challenge HTTP
+    command: >
+      sh -c "
+        # 1️⃣  Obtener el certificado
+        certbot certonly --webroot -w /var/www/html \
+        --email devnuxcode@gmail.com --agree-tos --no-eff-email \
+        -d ep.clouddevnux.online -d www.clouddevnux.online || exit 1;
+
+        # 2️⃣  Renovar el certificado automáticamente
+        while true; do sleep 12h; certbot renew --post-hook 'nginx -s reload'; done
+      "
 
 volumes:
   n8n-data:
