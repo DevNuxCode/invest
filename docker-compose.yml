@@ -1,7 +1,4 @@
-version: "3.9"
-
 services:
-  # ---------- Nginx ----------
   nginx:
     image: nginx:stable-alpine
     container_name: nginx
@@ -17,25 +14,25 @@ services:
       - react-app
       - n8n
 
-  # ---------- Certbot ----------
   certbot:
     image: certbot/certbot:v2.10.0
     container_name: certbot
     volumes:
       - ./certbot/www:/usr/share/nginx/html
       - ./certbot/conf:/etc/letsencrypt
-    command: [
-      "certonly",
-      "--webroot",
-      "-w", "/usr/share/nginx/html",
-      "-d", "ep.clouddevnux.online",
-      "-d", "www.clouddevnux.online",
-      "--email", "devnuxcode@gmail.com",
-      "--agree-tos",
-      "--no-eff-email"
-    ]
+    entrypoint: sh -c "
+      certbot certonly --webroot -w /usr/share/nginx/html \
+        -d ep.clouddevnux.online \
+        -d www.clouddevnux.online \
+        --email devnuxcode@gmail.com \
+        --agree-tos --no-eff-email --non-interactive && \
+      while :; do
+        certbot renew --webroot -w /usr/share/nginx/html && \
+        nginx -s reload || true;
+        sleep 12h;
+      done
+    "
 
-  # ---------- React app ----------
   react-app:
     build:
       context: .
@@ -47,7 +44,6 @@ services:
     env_file:
       - .env
 
-  # ---------- n8n ----------
   n8n:
     image: n8nio/n8n:latest
     container_name: n8n
