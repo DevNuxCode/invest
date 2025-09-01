@@ -15,6 +15,7 @@ RUN npm run build
 
 # ===== 2️⃣ Production stage – serve with nginx =====
 FROM nginx:stable-alpine AS runner
+
 RUN apk add --no-cache certbot openssl
 COPY --from=build /app/build /usr/share/nginx/html
 # Copy the build artifacts from the builder stage
