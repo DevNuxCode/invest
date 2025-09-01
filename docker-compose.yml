@@ -1,70 +1,62 @@
 services:
-  # ---------- Front‑end ----------
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - .conf/:/etc/nginx/conf.d:ro
+      - ./certbot/www:/usr/share/nginx/html
+      - ./certbot/conf:/etc/letsencrypt
+
+  certbot:
+    image: certbot/certbot:v2.10.0
+    container_name: certbot
+    volumes:
+      - ./certbot/www:/usr/share/nginx/html
+      - ./certbot/conf:/etc/letsencrypt
+    command: [
+      "certonly",
+      "--webroot",
+      "-w", "/usr/share/nginx/html",
+      "-d", "ep.clouddevnux.online",
+      "-d", "www.clouddevnux.online",
+      "--email", "devnuxcode@gmail.com",
+      "--agree-tos",
+      "--no-eff-email"
+    ]
+
   app:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: react-app
     ports:
-      - "3000:80"            # host port 3000 → container 80
+      - "3000:80"
     env_file:
-      - .env                # your React env vars (if any)
+      - .env
     restart: unless-stopped
     depends_on:
-      - n8n                  # wait for n8n to be ready
+      - n8n
     volumes:
-      - .conf:/etc/nginx/conf.d/:ro  # custom nginx config
-      - /etc/letsencrypt:/etc/letsencrypt:ro  # SSL certs (if using HTTPS)
+      - .conf:/etc/nginx/conf.d/:ro
+      - ./certbot/conf:/etc/letsencrypt:ro
 
-  nginx:
-    image: nginx:stable-alpine
-    container_name: nginx
-    restart: unless-stopped
-    ports:
-      - "80:80"          # HTTP
-      - "443:443"        # HTTPS
-    volumes:
-      - .conf/:/etc/nginx/:ro
-      - /etc/letsencrypt:/etc/letsencrypt:ro
-
-  # ---------- n8n ----------
   n8n:
     image: n8nio/n8n:latest
     container_name: n8n
     ports:
-      - "5678:5678"        # n8n UI & webhook endpoint
+      - "5678:5678"
     environment:
-      # Basic auth – change for production!
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=admin
       - N8N_BASIC_AUTH_PASSWORD=admin123
       - N8N_HOST=167.71.148.184
       - N8N_PORT=5678
-      # (Optional) set a different DB backend, e.g., Postgres:
-      # - DB_TYPE=postgresdb
-      # - DB_POSTGRESDB_HOST=db
-      # - DB_POSTGRESDB_PORT=5432
-      # - DB_POSTGRESDB_DATABASE=n8n
-      # - DB_POSTGRESDB_USER=n8n
-      # - DB_POSTGRESDB_PASSWORD=secret
     volumes:
-      - n8n-data:/home/node/.n8n   # persistence
-  
-  certbot:
-    image: certbot/certbot:v2.10.0
-    container_name: certbot
-    restart: unless-stopped
-    volumes:
-
-      - /usr/sbin/nginx:/usr/sbin/nginx:ro
-      - /etc/letsencrypt:/etc/letsencrypt
-      - /usr/share/nginx/html://usr/share/nginx/html:ro   # para challenge HTTP
-    #command: -c "certbot certonly --webroot -w /var/www/html -d ep.clouddevnux.online -d www.clouddevnux.online --email devnuxcode@gmail.com --agree-tos --no-eff-email && while true; do sleep 12h; certbot renew --post-hook 'docker exec nginx nginx -s reload'; done"
-    command: -c "certbot certonly \
-             --webroot -w /usr/share/nginx/html \
-             -d ep.clouddevnux.online -d www.clouddevnux.online \
-             --email devnuxcode@gmail.com --agree-tos --no-eff-email"
+      - n8n-data:/home/node/.n8n
 
 volumes:
   n8n-data:
- 
