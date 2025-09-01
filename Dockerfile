@@ -23,7 +23,7 @@ RUN apk add --no-cache certbot openssl
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Optional: override default nginx config for SPA routing
-COPY config/nginx.conf /etc/nginx/conf.d/default.conf
+COPY .config/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80 443
 
