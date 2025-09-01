@@ -1,0 +1,59 @@
+# 1️⃣ HTTP - redirige a HTTPS, pero permite Let's Encrypt ACME challenge
+server {
+    listen 80;
+    server_name ep.clouddevnux.online www.clouddevnux.online;
+
+    # Challenge ACME (no redirigir)
+    location /.well-known/acme-challenge/ {
+        root /usr/share/nginx/html;
+    }
+
+    # Redirige resto a HTTPS
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+# 2️⃣ HTTPS con certificados de Let's Encrypt
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name ep.clouddevnux.online www.clouddevnux.online;
+
+    # --------- Certificados ---------
+    ssl_certificate      /etc/letsencrypt/live/ep.clouddevnux.online/fullchain.pem;
+    ssl_certificate_key  /etc/letsencrypt/live/ep.clouddevnux.online/privkey.pem;
+
+    # --------- Seguridad recomendada ---------
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+
+    # --------- Proxy a React app ---------
+    location / {
+        proxy_pass http://react-app:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_buffering off;
+    }
+
+    # --------- Proxy a n8n ---------
+    location /n8n/ {
+        proxy_pass http://n8n:5678/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_buffering off;
+    }
+}
