@@ -13,7 +13,7 @@ services:
     depends_on:
       - n8n                  # wait for n8n to be ready
     volumes:
-      - /config/:/etc/nginx/conf.d/:ro  # custom nginx config
+      - .conf:/etc/nginx/conf.d/:ro  # custom nginx config
       - /etc/letsencrypt:/etc/letsencrypt:ro  # SSL certs (if using HTTPS)
 
   nginx:
@@ -24,7 +24,7 @@ services:
       - "80:80"          # HTTP
       - "443:443"        # HTTPS
     volumes:
-      - /config/:/etc/nginx/:ro
+      - .conf/:/etc/nginx/:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
 
   # ---------- n8n ----------
