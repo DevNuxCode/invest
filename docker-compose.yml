@@ -63,7 +63,7 @@ services:
       --webroot -w /var/www/html \
       -d ep.clouddevnux.online -d www.clouddevnux.online \
       --email devnuxcode@gmail.com --agree-tos --no-eff-email && \
-      while true; do sleep 12h; certbot renew --post-hook 'docker exec nginx nginx -s reload'; done"
+        while true; do sleep 12h; certbot renew --post-hook 'docker exec nginx nginx -s reload'; done"
 
 volumes:
   n8n-data:
