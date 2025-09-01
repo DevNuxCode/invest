@@ -21,17 +21,17 @@ services:
       - ./certbot/www:/usr/share/nginx/html
       - ./certbot/conf:/etc/letsencrypt
     entrypoint: sh -c "
-      certbot certonly --webroot -w /usr/share/nginx/html \
-        -d ep.clouddevnux.online \
-        -d www.clouddevnux.online \
-        --email devnuxcode@gmail.com \
-        --agree-tos --no-eff-email --non-interactive && \
-      while :; do
-        certbot renew --webroot -w /usr/share/nginx/html && \
-        nginx -s reload || true;
-        sleep 12h;
-      done
-    "
+                      certbot certonly --webroot -w /usr/share/nginx/html \
+                      -d ep.clouddevnux.online \
+                      -d www.clouddevnux.online \
+                      --email devnuxcode@gmail.com \
+                      --agree-tos --no-eff-email --non-interactive && \
+                      while :; do
+                      certbot renew --webroot -w /usr/share/nginx/html && \
+                      nginx -s reload || true;
+                      sleep 12h;
+                      done
+                      "
 
   react-app:
     build:
